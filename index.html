@@ -49,7 +49,8 @@
         </div>
 
         <button type="submit" id="generate-btn" class="btn-primary">
-          Generate QR code
+          <span>Generate QR code</span>
+          <span class="cost-badge">-50€</span>
         </button>
       </form>
 
@@ -67,11 +68,7 @@
   <footer class="footer">
     <div class="divider"></div>
     <div class="zito-tracker">
-      <span class="owe-text">How much I owe zito: <strong id="debt-amount">50</strong>€</span>
-      <div class="counter-controls">
-        <button type="button" id="decrease-btn" aria-label="Decrease amount">-</button>
-        <button type="button" id="increase-btn" aria-label="Increase amount">+</button>
-      </div>
+      <span class="owe-text">How much I owe zito: <strong>€<span id="debt-amount">50</span></strong></span>
       <img src="assets/zito.jpeg" alt="Zito" class="zito-avatar" />
     </div>
   </footer>

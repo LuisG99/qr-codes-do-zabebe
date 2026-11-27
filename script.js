@@ -1,18 +1,16 @@
 // ==========================================
-// 1. EMAILJS CONFIGURATION (Replace these!)
+// 1. EMAILJS CONFIGURATION (Keep your keys!)
 // ==========================================
-const EMAILJS_PUBLIC_KEY = "NgmXhpZ18Rc-FQG4n";
-const EMAILJS_SERVICE_ID = "service_nea90p8";
-const EMAILJS_TEMPLATE_ID = "template_89c1ivu";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 // ==========================================
-// 2. ZITO DEBT COUNTER (Starts at 50€)
+// 2. ZITO DEBT COUNTER (Starts at €50, +€50 per QR)
 // ==========================================
 const debtAmountEl = document.getElementById("debt-amount");
-const decreaseBtn = document.getElementById("decrease-btn");
-const increaseBtn = document.getElementById("increase-btn");
 
 let currentDebt = parseInt(localStorage.getItem("zitoDebt"), 10);
 if (isNaN(currentDebt)) {
@@ -23,18 +21,6 @@ function updateDebtDisplay() {
   debtAmountEl.textContent = currentDebt;
   localStorage.setItem("zitoDebt", currentDebt);
 }
-
-decreaseBtn.addEventListener("click", () => {
-  if (currentDebt > 0) {
-    currentDebt -= 1;
-    updateDebtDisplay();
-  }
-});
-
-increaseBtn.addEventListener("click", () => {
-  currentDebt += 1;
-  updateDebtDisplay();
-});
 
 updateDebtDisplay();
 
@@ -59,9 +45,13 @@ form.addEventListener("submit", async (e) => {
   if (!url) return;
 
   generateBtn.disabled = true;
-  generateBtn.textContent = "Generating & sending...";
+  generateBtn.innerHTML = '<span>Generating & sending...</span>';
   statusMsg.classList.remove("error");
   statusMsg.textContent = "";
+
+  // Add €50 to Zito's counter every time a QR code is generated
+  currentDebt += 50;
+  updateDebtDisplay();
 
   // Clear previous QR code
   qrcodeBox.innerHTML = "";
@@ -87,23 +77,24 @@ form.addEventListener("submit", async (e) => {
 
     resultArea.classList.remove("hidden");
 
+    const qrEmailImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+
     // Send email via EmailJS
     try {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         to_email: recipientEmail,
         qr_link: url,
-        qr_image: qrDataUrl,
+        qr_image: qrEmailImageUrl,
       });
 
       statusMsg.textContent = `QR code sent to ${recipientEmail}!`;
     } catch (error) {
       console.error("EmailJS error:", error);
       statusMsg.classList.add("error");
-      statusMsg.textContent =
-        "QR code generated below! (Configure EmailJS keys in script.js to enable email delivery.)";
+      statusMsg.textContent = `Error: ${error.text || "Check EmailJS keys in script.js"}`;
     } finally {
       generateBtn.disabled = false;
-      generateBtn.textContent = "Generate QR code";
+      generateBtn.innerHTML = '<span>Generate QR code</span><span class="cost-badge">-50€</span>';
     }
   }, 150);
 });
