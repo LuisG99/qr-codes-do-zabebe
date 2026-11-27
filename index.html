@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR codes do Zabebe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- QRCode.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+  <header class="top-bar">
+    <img src="assets/logo.png" alt="Sin City Logo" class="logo" />
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>QR codes do Zabebe</h1>
+      <p class="subtitle">Turn your link into a QR code, delivered to your inbox.</p>
+    </section>
+
+    <section class="card">
+      <form id="qr-form">
+        <div class="input-group">
+          <label for="link-input">Your link</label>
+          <input
+            type="url"
+            id="link-input"
+            placeholder="https://example.com"
+            required
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="email-input">Send it to</label>
+          <input
+            type="email"
+            id="email-input"
+            value="edchantre@gmail.com"
+            placeholder="edchantre@gmail.com"
+            required
+          />
+          <span class="helper-text">We'll send your QR code to this email address.</span>
+        </div>
+
+        <button type="submit" id="generate-btn" class="btn-primary">
+          Generate QR code
+        </button>
+      </form>
+
+      <p class="card-footer-note">One link. One QR code. Ready to share.</p>
+
+      <!-- Result / QR Preview Area -->
+      <div id="result-area" class="result-area hidden">
+        <div id="qrcode-box"></div>
+        <p id="status-msg" class="status-msg"></p>
+        <a id="download-link" class="download-btn" download="zabebe-qrcode.png">Download PNG</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="divider"></div>
+    <div class="zito-tracker">
+      <span class="owe-text">How much I owe zito: <strong id="debt-amount">50</strong>€</span>
+      <div class="counter-controls">
+        <button type="button" id="decrease-btn" aria-label="Decrease amount">-</button>
+        <button type="button" id="increase-btn" aria-label="Increase amount">+</button>
+      </div>
+      <img src="assets/zito.jpeg" alt="Zito" class="zito-avatar" />
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
