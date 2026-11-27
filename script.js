@@ -2,7 +2,7 @@
 // 1. EMAILJS CONFIGURATION (Replace these!)
 // ==========================================
 const EMAILJS_PUBLIC_KEY = "NgmXhpZ18Rc-FQG4n";
-const EMAILJS_SERVICE_ID = "service_2x3dnyd";
+const EMAILJS_SERVICE_ID = "service_nea90p8";
 const EMAILJS_TEMPLATE_ID = "template_89c1ivu";
 
 emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
